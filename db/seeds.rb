@@ -1,9 +1,13 @@
+Workout.delete_all
+Exercise.delete_all
 Session.delete_all
 User.delete_all
-Exercise.delete_all
 WorkoutExercise.delete_all
-Workout.delete_all
+UserSession.delete_all
 SessionWorkout.delete_all
+UserSessionWorkoutExercise.delete_all
+
+
 
 
 # Users are users 
@@ -135,16 +139,20 @@ Session.create(day: 119, name: "Power 4C, Session 3")
 Session.create(day: 120, name: "Regeneration Day")
 
 day_1 = Session.find_by(name: "Foundational Power A, Session 1")
+day_15 = Session.find_by(day: 15)
+
+thompson_day1 = UserSession.create(session_id: day_1.id, user_id: thompson.id)
 
 # A workout is a section of a session. Workouts can be shared between sessions. 
-Workout.create(component: "Pillar Prep", name: "Pillar Prep")
-Workout.create(component: "Movement Prep", name: "Movement Prep")
-Workout.create(component: "Plyometrics", name: "Plyometrics")
-Workout.create(component: "Relative Power", name: "Total Body Power")
-Workout.create(component: "Relative Power", name: "Primary Power")
-Workout.create(component: "Relative Power", name: "Secondary Power")
-Workout.create(component: "Relative Power", name: "Rotational Power")
-Workout.create(component: "ESD", name: "ESD")
+Workout.create(component: "Pillar Prep", name: "Day 1 - Pillar Prep")
+Workout.create(component: "Movement Prep", name: "Day 1 - Movement Prep")
+Workout.create(component: "Plyometrics", name: "Day 1 - Plyometrics")
+Workout.create(component: "Medicine Ball", name: "Day 1 - Medicine Ball")
+Workout.create(component: "Relative Power", name: "Day 1 - Total Body Power")
+Workout.create(component: "Relative Power", name: "Day 1 - Primary Power")
+Workout.create(component: "Relative Power", name: "Day 1 - Secondary Power")
+Workout.create(component: "Relative Power", name: "Day 1 - Rotational Power")
+Workout.create(component: "ESD", name: "Day 1 - ESD")
 Workout.create(component: "Movement Skills", name: "Movement Skills - Multidirectional")
 Workout.create(component: "Movement Skills", name: "Movement Skills - Linear")
 Workout.create(component: "Movement Skills", name: "Movement Skills - Combination")
@@ -156,22 +164,84 @@ Workout.create(component: "Regeneration", name: "Regeneration - Upper Back/Shoul
 Workout.create(component: "Regeneration", name: "Regeneration - Self Massage")
 Workout.create(component: "Regeneration", name: "Regeneration - Hip Pain")
 
-total_power_1 = Workout.find_by(name: "Total Body Power")
+SessionWorkout.create(session_id: (Session.find_by(day: 1)).id, workout_id: (Workout.find_by(name:"Day 1 - Pillar Prep")).id, order: 1)
+SessionWorkout.create(session_id: (Session.find_by(day: 1)).id, workout_id: (Workout.find_by(name:"Day 1 - Movement Prep")).id, order: 2)
+SessionWorkout.create(session_id: (Session.find_by(day: 1)).id, workout_id: (Workout.find_by(name:"Day 1 - Plyometrics")).id, order: 3)
+SessionWorkout.create(session_id: (Session.find_by(day: 1)).id, workout_id: (Workout.find_by(name:"Day 1 - Total Body Power")).id, order: 4)
+SessionWorkout.create(session_id: (Session.find_by(day: 1)).id, workout_id: (Workout.find_by(name:"Day 1 - Primary Power")).id, order: 5)
+SessionWorkout.create(session_id: (Session.find_by(day: 1)).id, workout_id: (Workout.find_by(name:"Day 1 - Secondary Power")).id, order: 6)
+SessionWorkout.create(session_id: (Session.find_by(day: 1)).id, workout_id: (Workout.find_by(name:"Day 1 - Rotational Power")).id, order: 7)
+SessionWorkout.create(session_id: (Session.find_by(day: 1)).id, workout_id: (Workout.find_by(name:"Day 1 - ESD")).id, order: 8)
 
-SessionWorkout.create(session_id: day_1.id, workout_id: total_power_1.id, workout_order: 4)
+Exercise.create(name: "Overhead Rotational Squat - 1 Arm Kettlebell", description: "Poop", category: "rep_weight", bi: true)
+Exercise.create(name: "Lateral Pillar Bridge to Row w/ Hip Flexion", description: "Bloop", category: "rep_weight", bi: true)
+Exercise.create(name: "Deep Squat to Hamstring Stretch", description: "Shoop", category: "rep_null", bi: true)
+Exercise.create(name: "Foam Roll - Glutes", description: "", category: "duration", bi: true)
+Exercise.create(name: "Foam Roll - IT Band", description: "", category: "duration", bi: true)
+Exercise.create(name: "Foam Roll - Quadriceps", description: "", category: "duration", bi: true)
+Exercise.create(name: "Foam Roll - Latissimus Dorsi", description: "", category: "duration", bi: true)
+Exercise.create(name: "Trigger Point - Arch/Plantar Fascia", description: "", category: "rep_null", bi: true)
+Exercise.create(name: "Inverted Hamstring", description: "", category: "rep_null", bi:true)
+Exercise.create(name: "Knee Hug", description: "", category: "rep_null", bi:true)
+Exercise.create(name: "Reverse Lunge - Forearm to Instep with Rotation", description: "", category: "rep_null", bi:true)
+Exercise.create(name: "Lateral Lunge", description: "", category: "rep_null", bi:true)
+Exercise.create(name: "Pillar March - Linear", description: "", category: "rep_null", bi:true)
+Exercise.create(name: "Pillar March - Skip", description: "", category: "rep_null", bi:true)
+Exercise.create(name: "Drop Squat - 2 Foot to 1 Foot", description: "", category: "rep_null", bi:true)
+Exercise.create(name: "Linear Hurdle Hop - Countermovement", description: "", category: "rep_null", bi:true)
+Exercise.create(name: "Lateral Bound - Stabilize (Miniband)", description: "", category: "rep_null", bi:true)
+Exercise.create(name: "Bench Press, Alternating DB w/ Leg Lowering", description: "", category: "rep_weight", bi:true)
+Exercise.create(name: "Sliding Overhead Press", description: "", category: "rep_null", bi:true)
+Exercise.create(name: "RDL to Row - 1 Arm, 1 Leg (cable)", description: "", category: "rep_weight", bi:true)
+Exercise.create(name: "Inverted Hamstring Stretch w/ Rotation", description: "", category: "rep_null", bi:true)
+Exercise.create(name: "Pull-up, 3 Point Isometric Holds", description: "", category: "duration", bi:true)
+Exercise.create(name: "Trigger Point - Thoracic Spine", description: "", category: "rep_null", bi:true)
+Exercise.create(name: "Split Squat - 1 Arm", description: "", category: "rep_weight", bi:true)
+Exercise.create(name: "Quad Hip Flexor Stretch - Half Kneeling", description: "", category: "rep_null", bi:true)
+Exercise.create(name: "Stability Chop - Half Kneeling (cable)", description: "", category: "rep_weight", bi:true)
+Exercise.create(name: "Dynamic Pillar Bridge (TRX)", description: "", category: "rep_null", bi:true)
+Exercise.create(name: "Kettlebell Shoulder Press w/ Lateral Flexion", description: "", category: "rep_weight", bi:true)
+Exercise.create(name: "ESD Machine - Hard", description: "", category: "speed", bi:true)
+Exercise.create(name: "ESD Machine - Medium", description: "", category: "speed", bi:true)
 
-Exercise.create(name: "Overhead Rotational Squat - 1 Arm Kettlebell", description: "Poop", category: "rep_weight")
-Exercise.create(name: "Lateral Pillar Bridge to Row w/ Hip Flexion", description: "Bloop", category: "rep_weight")
-Exercise.create(name: "Deep Squat to Hamstring Stretch", description: "Shoop", category: "rep_null")
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Pillar Prep")).id, exercise_id: (Exercise.find_by(name:"Foam Roll - Glutes")).id, reps: 30, set: 1, order: 1)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Pillar Prep")).id, exercise_id: (Exercise.find_by(name:"Foam Roll - IT Band")).id, reps: 30, set: 1, order: 2)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Pillar Prep")).id, exercise_id: (Exercise.find_by(name:"Foam Roll - Quadriceps")).id, reps: 30, set: 1, order: 3)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Pillar Prep")).id, exercise_id: (Exercise.find_by(name:"Foam Roll - Latissimus Dorsi")).id, reps: 30, set: 1, order: 4)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Pillar Prep")).id, exercise_id: (Exercise.find_by(name:"Trigger Point - Arch/Plantar Fascia")).id, reps: 50, set: 1, order: 5)
 
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Movement Prep")).id, exercise_id: (Exercise.find_by(name:"Inverted Hamstring")).id, reps: 5, set: 1, order: 1)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Movement Prep")).id, exercise_id: (Exercise.find_by(name:"Knee Hug")).id, reps: 5, set: 1, order: 2)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Movement Prep")).id, exercise_id: (Exercise.find_by(name:"Reverse Lunge - Forearm to Instep with Rotation")).id, reps: 5, set: 1, order: 3)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Movement Prep")).id, exercise_id: (Exercise.find_by(name:"Lateral Lunge")).id, reps: 5, set: 1, order: 4)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Movement Prep")).id, exercise_id: (Exercise.find_by(name:"Pillar March - Linear")).id, reps: 10, set: 2, order: 5)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Movement Prep")).id, exercise_id: (Exercise.find_by(name:"Pillar March - Skip")).id, reps: 10, set: 3, order: 6)
 
-ohr_squat_1 = Exercise.find_by(name: "Overhead Rotational Squat - 1 Arm Kettlebell")
-lpb_flexion_1 = Exercise.find_by(name: "Lateral Pillar Bridge to Row w/ Hip Flexion")
-d_squat_hamstr_1 = Exercise.find_by(name: "Deep Squat to Hamstring Stretch" )
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Plyometrics")).id, exercise_id: (Exercise.find_by(name:"Drop Squat - 2 Foot to 1 Foot")).id, reps: 6, set: 2, order: 1)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Plyometrics")).id, exercise_id: (Exercise.find_by(name:"Linear Hurdle Hop - Countermovement")).id, reps: 6, set: 2, order: 2)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Plyometrics")).id, exercise_id: (Exercise.find_by(name:"Lateral Bound - Stabilize (Miniband)")).id, reps: 6, set: 3, order: 3)
 
-WorkoutExercise.create(workout_id: total_power_1.id, exercise_id: ohr_squat_1.id, reps: 9, set: 2)
-WorkoutExercise.create(workout_id: total_power_1.id, exercise_id: lpb_flexion_1.id, reps: 6, set: 2)
-WorkoutExercise.create(workout_id: total_power_1.id,exercise_id: d_squat_hamstr_1.id, reps: 6, set: 2)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Total Body Power")).id, exercise_id: (Exercise.find_by(name:"Overhead Rotational Squat - 1 Arm Kettlebell")).id, reps: 9, set: 2, order: 1)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Total Body Power")).id, exercise_id: (Exercise.find_by(name:"Deep Squat to Hamstring Stretch")).id, reps: 6, set: 2, order: 2)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Total Body Power")).id, exercise_id: (Exercise.find_by(name:"Lateral Pillar Bridge to Row w/ Hip Flexion")).id, reps: 6, set: 2, order: 3)
+
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Primary Power")).id, exercise_id: (Exercise.find_by(name:"Bench Press, Alternating DB w/ Leg Lowering")).id, reps: 8, set: 3, order: 1)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Primary Power")).id, exercise_id: (Exercise.find_by(name:"Sliding Overhead Press")).id, reps: 6, set: 3, order: 2)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Primary Power")).id, exercise_id: (Exercise.find_by(name:"RDL to Row - 1 Arm, 1 Leg (cable)")).id, reps: 8, set: 3, order: 3)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Primary Power")).id, exercise_id: (Exercise.find_by(name:"Inverted Hamstring Stretch w/ Rotation")).id, reps: 6, set: 3, order: 4)
+
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Secondary Power")).id, exercise_id: (Exercise.find_by(name:"Pull-up, 3 Point Isometric Holds")).id, reps: 10, set: 3, order: 1)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Secondary Power")).id, exercise_id: (Exercise.find_by(name:"Trigger Point - Thoracic Spine")).id, reps: 5, set: 3, order: 2)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Secondary Power")).id, exercise_id: (Exercise.find_by(name:"Split Squat - 1 Arm")).id, reps: 8, set: 3, order: 3)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Secondary Power")).id, exercise_id: (Exercise.find_by(name:"Quad Hip Flexor Stretch - Half Kneeling")).id, reps: 6, set: 3, order: 4)
+
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Rotational Power")).id, exercise_id: (Exercise.find_by(name:"Pull-up, 3 Point Isometric Holds")).id, reps: 8, set: 3, order: 1)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Rotational Power")).id, exercise_id: (Exercise.find_by(name:"Trigger Point - Thoracic Spine")).id, reps: 10, set: 3, order: 2)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - Rotational Power")).id, exercise_id: (Exercise.find_by(name:"Split Squat - 1 Arm")).id, reps: 8, set: 3, order: 3)
+
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - ESD")).id, exercise_id: (Exercise.find_by(name:"ESD Machine - Hard")).id, reps: 30, set: 1, order: 1)
+WorkoutExercise.create(workout_id: (Workout.find_by(name:"Day 1 - ESD")).id, exercise_id: (Exercise.find_by(name:"ESD Machine - Medium")).id, reps: 270, set: 1, order: 2)
+
 
 
 

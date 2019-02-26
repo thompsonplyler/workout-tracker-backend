@@ -5,6 +5,7 @@ class CreateExercises < ActiveRecord::Migration[5.2]
       t.string :description
       t.string :category
       t.string :gif_url
+      t.boolean :bi
       t.timestamps
     end
   end

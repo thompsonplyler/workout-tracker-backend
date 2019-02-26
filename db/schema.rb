@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_22_192046) do
+ActiveRecord::Schema.define(version: 2019_02_24_033231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,13 +20,7 @@ ActiveRecord::Schema.define(version: 2019_02_22_192046) do
     t.string "description"
     t.string "category"
     t.string "gif_url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "schedules", force: :cascade do |t|
-    t.integer "last_exercise_id"
-    t.integer "next_exercise_id"
+    t.boolean "bi"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -34,7 +28,7 @@ ActiveRecord::Schema.define(version: 2019_02_22_192046) do
   create_table "session_workouts", force: :cascade do |t|
     t.integer "session_id"
     t.integer "workout_id"
-    t.integer "workout_order"
+    t.integer "order"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -46,11 +40,21 @@ ActiveRecord::Schema.define(version: 2019_02_22_192046) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_workout_exercises", force: :cascade do |t|
-    t.integer "user_id"
+  create_table "user_session_workout_exercises", force: :cascade do |t|
+    t.integer "user_session_id"
+    t.integer "session_workout_id"
     t.integer "workout_exercise_id"
-    t.integer "user_input"
-    t.string "user_notes"
+    t.integer "input"
+    t.boolean "flag"
+    t.string "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_sessions", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "session_id"
+    t.boolean "completed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -68,6 +72,7 @@ ActiveRecord::Schema.define(version: 2019_02_22_192046) do
     t.integer "exercise_id"
     t.integer "reps"
     t.integer "set"
+    t.integer "order"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

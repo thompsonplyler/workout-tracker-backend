@@ -1,2 +1,0 @@
-class UserWorkoutExercise < ApplicationRecord
-end
