@@ -9,7 +9,7 @@ class Api::V1::UserSessionsController < ApplicationController
     end
 
     def index
-        render json: UserSession.all
+        render json: UserSession.all.sort_by{|u|u.id}
     end
     
     def create

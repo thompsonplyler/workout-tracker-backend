@@ -1,5 +1,6 @@
 class UserSessionSerializer < ActiveModel::Serializer
-    attributes :id, :completed, :user_id, :session_id, :session, :user, :session_workouts
+    attributes :id, :completed, :user_id, :session_id, :session, :user, 
+    # :session_workouts
     
     def user
         {user_id: self.object.user.id,
@@ -34,9 +35,9 @@ class UserSessionSerializer < ActiveModel::Serializer
     def exercises(workout_id)
         exercise_arr = []
         exercises = WorkoutExercise.all.select{|we|we.workout_id == workout_id}
-        return exercises.map do |exercise|
+        exercises.map do |exercise|
             
-            exercise_obj = {:name => (Exercise.find(exercise.exercise_id)).name}
+            exercise_obj = {:name => (Exercise.find(exercise.exercise_id)).name, :sets => exercise.set, :reps => exercise.reps, :category => (Exercise.find(exercise.exercise.id)).category, :bi => (Exercise.find(exercise.exercise.id)).bi, :description => (Exercise.find(exercise.exercise.id)).description, :gif_url => (Exercise.find(exercise.exercise.id)).gif_url}
             # return exercise 
             exercise_arr << exercise_obj
         end
