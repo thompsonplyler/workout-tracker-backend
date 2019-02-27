@@ -23,22 +23,24 @@ class UserSessionSerializer < ActiveModel::Serializer
 
         workouts = workouts_sort.map do |session_workout| 
             {component: session_workout.workout.name,
-                exercises: session_workout.workout.workout_exercises}
+                exercises: self.exercises(session_workout.workout.id)}
                 # exercises: session_workout.workout.workout_exercises}
         end
-
-
         {
             workouts: workouts
         }
     end
 
-    def exercises
-        workouts_sort = self.object.session.session_workouts.sort_by{|workout|workout.order}
-        
-        exercises = workouts_sort.map do |session_workout|
-            {exercises: session_workout.workout.workout_exercises}
+    def exercises(workout_id)
+        exercise_arr = []
+        exercises = WorkoutExercise.all.select{|we|we.workout_id == workout_id}
+        return exercises.map do |exercise|
+            
+            exercise_obj = {:name => (Exercise.find(exercise.exercise_id)).name}
+            # return exercise 
+            exercise_arr << exercise_obj
         end
+        return exercise_arr
     end
 
 end
