@@ -11,6 +11,10 @@ class Api::V1::UserSessionsController < ApplicationController
     def index
         render json: UserSession.all.sort_by{|u|u.id}
     end
+
+    def daily_workout
+        render json: DailyWorkoutSerializer.new
+    end
     
     def create
    

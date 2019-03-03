@@ -1,5 +1,5 @@
 class UserSessionSerializer < ActiveModel::Serializer
-    attributes :id, :completed, :user_id, :session_id, :session, :user, 
+    attributes :id, :completed, :user_id, :session_id, :session, :user, :session_workouts
     # :session_workouts
     
     def user
@@ -15,7 +15,7 @@ class UserSessionSerializer < ActiveModel::Serializer
         } 
     end
 
-    def session_workouts
+        def session_workouts
         workouts_sort = self.object.session.session_workouts.sort_by{|workout|workout.order} 
         
         session_exercises = workouts_sort.map do |session_workout|
