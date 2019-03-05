@@ -1,5 +1,5 @@
 class ExerciseSerializer < ActiveModel::Serializer
-    attributes :bi, :category, :description, :gif_url, :name
+    attributes :id, :bi, :category, :description, :gif_url, :name
 end
 
 
