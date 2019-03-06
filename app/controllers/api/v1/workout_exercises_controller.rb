@@ -1,5 +1,5 @@
 class Api::V1::WorkoutExercisesController < ApplicationController
-    # skip_before_action :authorized, only: [:create]  
+    skip_before_action :authorized, only: [:create]  
     def show 
         render json: WorkoutExercise.find(params[:id])
         # render json: {user: UserSerializer.new(current_user)}

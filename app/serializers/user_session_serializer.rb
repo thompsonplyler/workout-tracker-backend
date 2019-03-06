@@ -59,27 +59,6 @@ class UserSessionSerializer < ActiveModel::Serializer
     end
 
     def user_session_workout_exercise(s_workout, w_exercise)
-        # w_e_check = UserSessionWorkoutExercise.all.select{|uswe| uswe.workout_exercise_id==w_exercise}
-        # s_w_check = UserSessionWorkoutExercise.all.select{|uswe| uswe.session_workout_id==s_workout}
-        # u_s_check = UserSessionWorkoutExercise.all.select{|uswe| uswe.user_session_id==self.object.id}
-        
-        # if (w_e_check == s_w_check) && (s_w_check == u_s_check)
-        #     return u_s_check
-        # else
-        #     return 0
-        # end
-        #### This works, but below is more efficient since it only makes one database call. ####
-
-        # w_e_check = UserSessionWorkoutExercise.all.select{|uswe| uswe.workout_exercise_id==w_exercise}
-        # s_w_check = w_e_check.select{|uswe| uswe.session_workout_id==s_workout}
-        # u_s_check = s_w_check.select{|uswe| uswe.user_session_id==self.object.id}
-        
-        # if (u_s_check.length > 0)
-        #     return u_s_check
-        # else
-        #     return 0
-        # end
-
         us_filter = self.object.user_session_workout_exercises
         we_filter = us_filter.select{|uswe| uswe.workout_exercise_id==w_exercise}
         sw_filter = we_filter.select{|uswe| uswe.session_workout_id==s_workout}

@@ -1,5 +1,5 @@
 class Api::V1::ExercisesController < ApplicationController
-    # skip_before_action :authorized, only: [:create]
+    skip_before_action :authorized, only: [:create]
     def profile
       render json: Exercise.new(params)
     end

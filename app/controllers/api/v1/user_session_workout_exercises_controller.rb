@@ -1,5 +1,5 @@
 class Api::V1::UserSessionWorkoutExercisesController < ApplicationController
-    # skip_before_action :authorized, only: [:create]  
+    skip_before_action :authorized, only: [:create]  
 
     
     def create

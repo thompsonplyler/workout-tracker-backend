@@ -12,7 +12,8 @@ Rails.application.routes.draw do
       # => '/user_sessions#daily_workout', :as => :daily_workout
       resources :session_workout 
       resources :workouts
-      # get '/profile', to: 'user#profile'
+      post '/login', to: 'auth#create'
+      get '/profile', to: 'user#profile'
     end
   end
   # get '/api/v1/user_sessions/daily_workouts' to 'user_sessions#daily_workouts', as: 'daily_workouts'
