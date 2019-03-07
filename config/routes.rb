@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :user, only: [:create, :index]
-      get '/buttcrack', to: 'users#buttcrack'
+      get '/current', to: 'users#current'
       post '/users', to: 'users#create'
       resources :user_session_workout_exercises
       post '/user_session_workout_exercises', to: 'user_session_workout_exercise#create'
